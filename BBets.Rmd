@@ -65,6 +65,34 @@ An odds ratio of 4.25:1 seems fair because it returns a low mean which means tha
 # What size of class makes the 2:1 bet fair?  
 <!--Explain and display the results of your method of coming up with the estimate of professor Brownlows betting profits!-->
 
+```{r}
+URN = 1:365
+```
+
+```{r}
+classSize = 29
+winAmount=1
+loseAmount=2
+
+test = vector('numeric')
+saveBank=vector('numeric')
+for (j in 1:30){
+  bank=0
+for(i in 1:637){
+test = sample(URN, size=classSize, replace=TRUE)
+ifelse(length(unique(test))==classSize, (bank=bank-loseAmount),(bank=bank+winAmount))
+saveBank[j] = bank
+}
+}
+hist(saveBank)
+
+```
+
+```{r}
+favstats(saveBank)
+```
+
+A class size between 28 and 29 people would make for a fair bet. At 28 people the odds are in favor of the class and at 29 they're in favor of the professor.
 
 # In the class and payoff as described what is a 95% confidence interval for Brownlow's earnings?
   
