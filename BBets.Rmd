@@ -98,8 +98,36 @@ A class size between 28 and 29 people would make for a fair bet. At 28 people th
   
 <!--Explain and display your method of coming up with a 95% confidence interval of  professor Brownlows winnings (or losings)-->
 
+```{r}
+classSize = 35
+winAmount=1
+loseAmount=2.00
+
+test = vector('numeric')
+saveBank=vector('numeric')
+for (j in 1:1000){
+  bank=0
+for(i in 1:637){
+test = sample(URN, size=classSize, replace=TRUE)
+ifelse(length(unique(test))==classSize, (bank=bank-loseAmount),(bank=bank+winAmount))
+saveBank[j] = bank
+}
+}
+hist(saveBank)
+
+```
+
+```{r}
+sortedBank <- sort(saveBank)
+lcl<-sortedBank[25]
+ucl<-sortedBank[975]
+print(paste(lcl,ucl))
+```
+
+The 95% confidence would be between $220 and $334.  He would make (on average) a minimum of $220 and a maximum of $334. We found this by finding the middle 95% (above 25 and below 950 for 1000 bets).
 
 # Discussion and Conclusion
 
 <!--Discussion and conclusion here.  If professor Brownlow is consistantly making or losing money how could he change his payout so that his profits center on zero?  Also discuss what size his class should be in order to have his current scheme balance at zero profit.!-->
 
+He should increase his payout if his class size is around 35 students because once he goes over 28 students, the odds are in his favor. However, if his class size is 28 or less the odds are against him and he would want to decrease his payout in order to have his profits center on zero. The ideal class size for running this bet while issuing a 2:1 payout would be between 28 and 29 students if the goal was to have a profit centered on zero.
